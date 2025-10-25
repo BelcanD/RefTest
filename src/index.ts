@@ -60,7 +60,8 @@ app.post('/upload', upload.single('jsonFile'), async (req, res) => {
     console.error('Ошибка при обработке файла:', error);
     res.status(500).json({ 
       error: 'Ошибка при обработке файла',
-      details: error instanceof Error ? error.message : 'Неизвестная ошибка'
+      details: error instanceof Error ? error.message : 'Неизвестная ошибка',
+      stack: process.env.NODE_ENV === 'development' ? (error instanceof Error ? error.stack : undefined) : undefined
     });
   }
 });
@@ -80,7 +81,8 @@ app.post('/process', async (req, res) => {
     console.error('Ошибка при обработке данных:', error);
     res.status(500).json({ 
       error: 'Ошибка при обработке данных',
-      details: error instanceof Error ? error.message : 'Неизвестная ошибка'
+      details: error instanceof Error ? error.message : 'Неизвестная ошибка',
+      stack: process.env.NODE_ENV === 'development' ? (error instanceof Error ? error.stack : undefined) : undefined
     });
   }
 });
