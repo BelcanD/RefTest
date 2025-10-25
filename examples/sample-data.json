@@ -1,0 +1,30 @@
+// Пример JSON файла для тестирования сервиса
+{
+  "type": "INSERT",
+  "table": "identities",
+  "record": {
+    "id": "53de3e5d-3421-4d74-b255-fe322c7f0b53",
+    "email": "belcandd@gmail.com",
+    "user_id": "75983ce4-5e9b-48ef-a0ad-164f04a7421c",
+    "provider": "google",
+    "created_at": "2025-10-24T13:03:10.999288+00:00",
+    "updated_at": "2025-10-24T13:03:10.999288+00:00",
+    "provider_id": "108457488958606932343",
+    "identity_data": {
+      "iss": "https://accounts.google.com",
+      "sub": "108457488958606932343",
+      "name": "Sergey BelcanD",
+      "email": "belcandd@gmail.com",
+      "picture": "https://lh3.googleusercontent.com/a/ACg8ocL5m8HTsvqJ0_8or_Tqjjv2r2C-40vUAZE-AfcHvXw7AF06Rw=s96-c",
+      "full_name": "Sergey BelcanD",
+      "avatar_url": "https://lh3.googleusercontent.com/a/ACg8ocL5m8HTsvqJ0_8or_Tqjjv2r2C-40vUAZE-AfcHvXw7AF06Rw=s96-c",
+      "provider_id": "108457488958606932343",
+      "email_verified": true,
+      "phone_verified": false
+    },
+    "last_sign_in_at": "2025-10-24T13:03:10.999239+00:00"
+  },
+  "schema": "auth",
+  "old_record": null
+}
+

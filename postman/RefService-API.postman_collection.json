@@ -1,0 +1,92 @@
+{
+  "info": {
+    "name": "RefService API",
+    "description": "Коллекция для тестирования RefService API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "https://your-project-url.vercel.app",
+      "description": "Базовый URL вашего деплоя на Vercel"
+    }
+  ],
+  "item": [
+    {
+      "name": "Health Check",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/health",
+          "host": ["{{baseUrl}}"],
+          "path": ["health"]
+        },
+        "description": "Проверка статуса сервиса"
+      },
+      "response": []
+    },
+    {
+      "name": "Upload JSON File",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "formdata",
+          "formdata": [
+            {
+              "key": "jsonFile",
+              "type": "file",
+              "src": [],
+              "description": "JSON файл для загрузки"
+            }
+          ]
+        },
+        "url": {
+          "raw": "{{baseUrl}}/upload",
+          "host": ["{{baseUrl}}"],
+          "path": ["upload"]
+        },
+        "description": "Загрузка JSON файла"
+      },
+      "response": []
+    },
+    {
+      "name": "Process JSON Data",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"type\": \"INSERT\",\n  \"table\": \"identities\",\n  \"record\": {\n    \"id\": \"53de3e5d-3421-4d74-b255-fe322c7f0b53\",\n    \"email\": \"belcandd@gmail.com\",\n    \"user_id\": \"75983ce4-5e9b-48ef-a0ad-164f04a7421c\",\n    \"provider\": \"google\",\n    \"created_at\": \"2025-10-24T13:03:10.999288+00:00\",\n    \"updated_at\": \"2025-10-24T13:03:10.999288+00:00\",\n    \"provider_id\": \"108457488958606932343\",\n    \"identity_data\": {\n      \"iss\": \"https://accounts.google.com\",\n      \"sub\": \"108457488958606932343\",\n      \"name\": \"Sergey BelcanD\",\n      \"email\": \"belcandd@gmail.com\",\n      \"picture\": \"https://lh3.googleusercontent.com/a/ACg8ocL5m8HTsvqJ0_8or_Tqjjv2r2C-40vUAZE-AfcHvXw7AF06Rw=s96-c\",\n      \"full_name\": \"Sergey BelcanD\",\n      \"avatar_url\": \"https://lh3.googleusercontent.com/a/ACg8ocL5m8HTsvqJ0_8or_Tqjjv2r2C-40vUAZE-AfcHvXw7AF06Rw=s96-c\",\n      \"provider_id\": \"108457488958606932343\",\n      \"email_verified\": true,\n      \"phone_verified\": false\n    },\n    \"last_sign_in_at\": \"2025-10-24T13:03:10.999239+00:00\"\n  },\n  \"schema\": \"auth\",\n  \"old_record\": null\n}"
+        },
+        "url": {
+          "raw": "{{baseUrl}}/process",
+          "host": ["{{baseUrl}}"],
+          "path": ["process"]
+        },
+        "description": "Прямая отправка JSON данных"
+      },
+      "response": []
+    },
+    {
+      "name": "Get All Records",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/records",
+          "host": ["{{baseUrl}}"],
+          "path": ["records"]
+        },
+        "description": "Получение всех записей из базы данных"
+      },
+      "response": []
+    }
+  ]
+}
