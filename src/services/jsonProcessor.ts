@@ -56,21 +56,14 @@ export async function processJsonFile(filePath?: string | null, jsonData?: JsonD
     throw new Error(`Неподдерживаемая таблица: ${data.table}`);
   }
 
-  // Извлекаем необходимые данные
-  const { id, email, user_id, provider, created_at, updated_at, provider_id, identity_data, last_sign_in_at } = data.record;
+  // Извлекаем только необходимые данные (email и id)
+  const { id, email } = data.record;
 
-  // Подготавливаем данные для вставки в нашу таблицу
+  // Подготавливаем данные для вставки в нашу таблицу (только email и id)
   const insertData = {
     id,
     email,
-    //user_id,
-    //provider,
-    //created_at,
-    //updated_at,
-    //provider_id,
-    //identity_data: JSON.stringify(identity_data),
-    //last_sign_in_at,
-    //processed_at: new Date().toISOString()
+    processed_at: new Date().toISOString()
   };
 
   try {
