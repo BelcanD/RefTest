@@ -1,0 +1,282 @@
+[
+  {
+    "type": "INSERT",
+    "table": "identities",
+    "record": {
+      "id": "a1b2c3d4-e5f6-7890-abcd-ef1234567890",
+      "email": "user1@example.com",
+      "user_id": "11111111-2222-3333-4444-555555555555",
+      "provider": "google",
+      "created_at": "2025-01-15T10:30:45.123456+00:00",
+      "updated_at": "2025-01-15T10:30:45.123456+00:00",
+      "provider_id": "123456789012345678901",
+      "identity_data": {
+        "iss": "https://accounts.google.com",
+        "sub": "123456789012345678901",
+        "name": "John Doe",
+        "email": "user1@example.com",
+        "picture": "https://lh3.googleusercontent.com/a/user1.jpg",
+        "full_name": "John Doe",
+        "avatar_url": "https://lh3.googleusercontent.com/a/user1.jpg",
+        "provider_id": "123456789012345678901",
+        "email_verified": true,
+        "phone_verified": false
+      },
+      "last_sign_in_at": "2025-01-15T10:30:45.123000+00:00"
+    },
+    "schema": "auth",
+    "old_record": null
+  },
+  {
+    "type": "INSERT",
+    "table": "identities",
+    "record": {
+      "id": "b2c3d4e5-f6a7-8901-bcde-f23456789012",
+      "email": "user2@example.com",
+      "user_id": "22222222-3333-4444-5555-666666666666",
+      "provider": "google",
+      "created_at": "2025-01-15T11:15:20.456789+00:00",
+      "updated_at": "2025-01-15T11:15:20.456789+00:00",
+      "provider_id": "234567890123456789012",
+      "identity_data": {
+        "iss": "https://accounts.google.com",
+        "sub": "234567890123456789012",
+        "name": "Jane Smith",
+        "email": "user2@example.com",
+        "picture": "https://lh3.googleusercontent.com/a/user2.jpg",
+        "full_name": "Jane Smith",
+        "avatar_url": "https://lh3.googleusercontent.com/a/user2.jpg",
+        "provider_id": "234567890123456789012",
+        "email_verified": true,
+        "phone_verified": true
+      },
+      "last_sign_in_at": "2025-01-15T11:15:20.456000+00:00"
+    },
+    "schema": "auth",
+    "old_record": null
+  },
+  {
+    "type": "INSERT",
+    "table": "identities",
+    "record": {
+      "id": "c3d4e5f6-a7b8-9012-cdef-345678901234",
+      "email": "user3@example.com",
+      "user_id": "33333333-4444-5555-6666-777777777777",
+      "provider": "github",
+      "created_at": "2025-01-15T12:00:30.789012+00:00",
+      "updated_at": "2025-01-15T12:00:30.789012+00:00",
+      "provider_id": "345678901234567890123",
+      "identity_data": {
+        "iss": "https://github.com",
+        "sub": "345678901234567890123",
+        "name": "Alice Johnson",
+        "email": "user3@example.com",
+        "picture": "https://avatars.githubusercontent.com/u/34567890",
+        "full_name": "Alice Johnson",
+        "avatar_url": "https://avatars.githubusercontent.com/u/34567890",
+        "provider_id": "345678901234567890123",
+        "email_verified": true,
+        "phone_verified": false
+      },
+      "last_sign_in_at": "2025-01-15T12:00:30.789000+00:00"
+    },
+    "schema": "auth",
+    "old_record": null
+  },
+  {
+    "type": "INSERT",
+    "table": "identities",
+    "record": {
+      "id": "d4e5f6a7-b8c9-0123-def4-456789012345",
+      "email": "user4@example.com",
+      "user_id": "44444444-5555-6666-7777-888888888888",
+      "provider": "facebook",
+      "created_at": "2025-01-15T13:20:15.321654+00:00",
+      "updated_at": "2025-01-15T13:20:15.321654+00:00",
+      "provider_id": "456789012345678901234",
+      "identity_data": {
+        "iss": "https://www.facebook.com",
+        "sub": "456789012345678901234",
+        "name": "Bob Wilson",
+        "email": "user4@example.com",
+        "picture": "https://platform-lookaside.fbsbx.com/platform/profilepic/?asid=456789012345678901234",
+        "full_name": "Bob Wilson",
+        "avatar_url": "https://platform-lookaside.fbsbx.com/platform/profilepic/?asid=456789012345678901234",
+        "provider_id": "456789012345678901234",
+        "email_verified": true,
+        "phone_verified": true
+      },
+      "last_sign_in_at": "2025-01-15T13:20:15.321000+00:00"
+    },
+    "schema": "auth",
+    "old_record": null
+  },
+  {
+    "type": "INSERT",
+    "table": "identities",
+    "record": {
+      "id": "e5f6a7b8-c9d0-1234-ef56-789012345678",
+      "email": "user5@example.com",
+      "user_id": "55555555-6666-7777-8888-999999999999",
+      "provider": "google",
+      "created_at": "2025-01-15T14:45:50.987654+00:00",
+      "updated_at": "2025-01-15T14:45:50.987654+00:00",
+      "provider_id": "567890123456789012345",
+      "identity_data": {
+        "iss": "https://accounts.google.com",
+        "sub": "567890123456789012345",
+        "name": "Charlie Brown",
+        "email": "user5@example.com",
+        "picture": "https://lh3.googleusercontent.com/a/user5.jpg",
+        "full_name": "Charlie Brown",
+        "avatar_url": "https://lh3.googleusercontent.com/a/user5.jpg",
+        "provider_id": "567890123456789012345",
+        "email_verified": true,
+        "phone_verified": false
+      },
+      "last_sign_in_at": "2025-01-15T14:45:50.987000+00:00"
+    },
+    "schema": "auth",
+    "old_record": null
+  },
+  {
+    "type": "INSERT",
+    "table": "identities",
+    "record": {
+      "id": "f6a7b8c9-d0e1-2345-f678-901234567890",
+      "email": "user6@example.com",
+      "user_id": "66666666-7777-8888-9999-000000000000",
+      "provider": "github",
+      "created_at": "2025-01-15T15:30:25.654321+00:00",
+      "updated_at": "2025-01-15T15:30:25.654321+00:00",
+      "provider_id": "678901234567890123456",
+      "identity_data": {
+        "iss": "https://github.com",
+        "sub": "678901234567890123456",
+        "name": "David Martinez",
+        "email": "user6@example.com",
+        "picture": "https://avatars.githubusercontent.com/u/67890123",
+        "full_name": "David Martinez",
+        "avatar_url": "https://avatars.githubusercontent.com/u/67890123",
+        "provider_id": "678901234567890123456",
+        "email_verified": true,
+        "phone_verified": false
+      },
+      "last_sign_in_at": "2025-01-15T15:30:25.654000+00:00"
+    },
+    "schema": "auth",
+    "old_record": null
+  },
+  {
+    "type": "INSERT",
+    "table": "identities",
+    "record": {
+      "id": "a7b8c9d0-e1f2-3456-a789-bcdef0123456",
+      "email": "user7@example.com",
+      "user_id": "77777777-8888-9999-0000-111111111111",
+      "provider": "google",
+      "created_at": "2025-01-15T16:10:40.147258+00:00",
+      "updated_at": "2025-01-15T16:10:40.147258+00:00",
+      "provider_id": "789012345678901234567",
+      "identity_data": {
+        "iss": "https://accounts.google.com",
+        "sub": "789012345678901234567",
+        "name": "Eva Thompson",
+        "email": "user7@example.com",
+        "picture": "https://lh3.googleusercontent.com/a/user7.jpg",
+        "full_name": "Eva Thompson",
+        "avatar_url": "https://lh3.googleusercontent.com/a/user7.jpg",
+        "provider_id": "789012345678901234567",
+        "email_verified": true,
+        "phone_verified": true
+      },
+      "last_sign_in_at": "2025-01-15T16:10:40.147000+00:00"
+    },
+    "schema": "auth",
+    "old_record": null
+  },
+  {
+    "type": "INSERT",
+    "table": "identities",
+    "record": {
+      "id": "b8c9d0e1-f2a3-4567-b890-cdef01234567",
+      "email": "user8@example.com",
+      "user_id": "88888888-9999-0000-1111-222222222222",
+      "provider": "facebook",
+      "created_at": "2025-01-15T17:25:55.369852+00:00",
+      "updated_at": "2025-01-15T17:25:55.369852+00:00",
+      "provider_id": "890123456789012345678",
+      "identity_data": {
+        "iss": "https://www.facebook.com",
+        "sub": "890123456789012345678",
+        "name": "Frank Lee",
+        "email": "user8@example.com",
+        "picture": "https://platform-lookaside.fbsbx.com/platform/profilepic/?asid=890123456789012345678",
+        "full_name": "Frank Lee",
+        "avatar_url": "https://platform-lookaside.fbsbx.com/platform/profilepic/?asid=890123456789012345678",
+        "provider_id": "890123456789012345678",
+        "email_verified": true,
+        "phone_verified": false
+      },
+      "last_sign_in_at": "2025-01-15T17:25:55.369000+00:00"
+    },
+    "schema": "auth",
+    "old_record": null
+  },
+  {
+    "type": "INSERT",
+    "table": "identities",
+    "record": {
+      "id": "c9d0e1f2-a3b4-5678-c901-def012345678",
+      "email": "user9@example.com",
+      "user_id": "99999999-0000-1111-2222-333333333333",
+      "provider": "google",
+      "created_at": "2025-01-15T18:40:10.258147+00:00",
+      "updated_at": "2025-01-15T18:40:10.258147+00:00",
+      "provider_id": "901234567890123456789",
+      "identity_data": {
+        "iss": "https://accounts.google.com",
+        "sub": "901234567890123456789",
+        "name": "Grace White",
+        "email": "user9@example.com",
+        "picture": "https://lh3.googleusercontent.com/a/user9.jpg",
+        "full_name": "Grace White",
+        "avatar_url": "https://lh3.googleusercontent.com/a/user9.jpg",
+        "provider_id": "901234567890123456789",
+        "email_verified": true,
+        "phone_verified": true
+      },
+      "last_sign_in_at": "2025-01-15T18:40:10.258000+00:00"
+    },
+    "schema": "auth",
+    "old_record": null
+  },
+  {
+    "type": "INSERT",
+    "table": "identities",
+    "record": {
+      "id": "d0e1f2a3-b4c5-6789-d012-ef0123456789",
+      "email": "user10@example.com",
+      "user_id": "00000000-1111-2222-3333-444444444444",
+      "provider": "github",
+      "created_at": "2025-01-15T19:55:35.741963+00:00",
+      "updated_at": "2025-01-15T19:55:35.741963+00:00",
+      "provider_id": "012345678901234567890",
+      "identity_data": {
+        "iss": "https://github.com",
+        "sub": "012345678901234567890",
+        "name": "Henry Taylor",
+        "email": "user10@example.com",
+        "picture": "https://avatars.githubusercontent.com/u/01234567",
+        "full_name": "Henry Taylor",
+        "avatar_url": "https://avatars.githubusercontent.com/u/01234567",
+        "provider_id": "012345678901234567890",
+        "email_verified": true,
+        "phone_verified": false
+      },
+      "last_sign_in_at": "2025-01-15T19:55:35.741000+00:00"
+    },
+    "schema": "auth",
+    "old_record": null
+  }
+]

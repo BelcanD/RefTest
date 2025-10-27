@@ -1,0 +1,28 @@
+﻿{
+  "type": "INSERT",
+  "table": "identities",
+  "record": {
+    "id": "a1b2c3d4-e5f6-7890-abcd-ef1234567890",
+    "email": "user1@example.com",
+    "user_id": "11111111-2222-3333-4444-555555555555",
+    "provider": "google",
+    "created_at": "2025-01-15T10:30:45.123456+00:00",
+    "updated_at": "2025-01-15T10:30:45.123456+00:00",
+    "provider_id": "123456789012345678901",
+    "identity_data": {
+      "iss": "https://accounts.google.com",
+      "sub": "123456789012345678901",
+      "name": "John Doe",
+      "email": "user1@example.com",
+      "picture": "https://lh3.googleusercontent.com/a/user1.jpg",
+      "full_name": "John Doe",
+      "avatar_url": "https://lh3.googleusercontent.com/a/user1.jpg",
+      "provider_id": "123456789012345678901",
+      "email_verified": true,
+      "phone_verified": false
+    },
+    "last_sign_in_at": "2025-01-15T10:30:45.123000+00:00"
+  },
+  "schema": "auth",
+  "old_record": null
+}
