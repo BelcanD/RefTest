@@ -97,7 +97,7 @@ export async function getReferralLinkByEmail(email: string): Promise<string | nu
 export async function processUserRefCode(id: string, email: string): Promise<string> {
   try {
     // Проверяем, есть ли уже реферальный код у этого пользователя
-    const { data: existing } = await supabaseClient
+    const { data: existing, error: fetchError } = await supabaseClient
       .from('user_identities')
       .select('ref_code')
       .eq('id', id)
@@ -105,6 +105,7 @@ export async function processUserRefCode(id: string, email: string): Promise<str
     
     if (existing && existing.ref_code) {
       // Код уже существует, возвращаем его
+      console.log(`Реферальный код уже существует для пользователя ${email}: ${existing.ref_code}`);
       return `jobsy.com/ref/${existing.ref_code}`;
     }
     
@@ -112,9 +113,17 @@ export async function processUserRefCode(id: string, email: string): Promise<str
     const refCode = await generateUniqueRefCode();
     
     // Сохраняем код в базу данных
-    await saveRefCodeToDatabase(id, refCode);
+    const { error: saveError } = await supabaseClient
+      .from('user_identities')
+      .update({ ref_code: refCode })
+      .eq('id', id);
     
-    console.log(`Реферальный код ${refCode} успешно создан для пользователя ${email}`);
+    if (saveError) {
+      console.error('Ошибка при сохранении реферального кода:', saveError);
+      throw new Error('Не удалось сохранить реферальный код');
+    }
+    
+    console.log(`Реферальный код ${refCode} успешно создан и сохранен для пользователя ${email}`);
     
     return `jobsy.com/ref/${refCode}`;
     

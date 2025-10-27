@@ -68,30 +68,60 @@ export async function processJsonFile(filePath?: string | null, jsonData?: JsonD
   };
 
   try {
-    // Вставляем данные в базу данных
-    const { data: result, error } = await supabaseClient
+    // Проверяем, существует ли пользователь в базе
+    const { data: existing, error: checkError } = await supabaseClient
       .from('user_identities')
-      .insert([insertData])
-      .select();
+      .select('*')
+      .eq('id', id)
+      .single();
 
-    if (error) {
-      throw error;
+    let result;
+
+    if (checkError && checkError.code === 'PGRST116') {
+      // Пользователь не найден - создаем нового
+      console.log(`Создание нового пользователя: ${email}`);
+      
+      const { data: insertResult, error: insertError } = await supabaseClient
+        .from('user_identities')
+        .insert([insertData])
+        .select();
+
+      if (insertError) {
+        throw insertError;
+      }
+
+      result = insertResult;
+      console.log('Данные успешно записаны в базу данных:', result);
+    } else if (existing) {
+      // Пользователь уже существует - обновляем только processed_at
+      console.log(`Пользователь уже существует: ${email}`);
+      
+      const { data: updateResult, error: updateError } = await supabaseClient
+        .from('user_identities')
+        .update({ processed_at: new Date().toISOString() })
+        .eq('id', id)
+        .select();
+
+      if (updateError) {
+        throw updateError;
+      }
+
+      result = updateResult;
+      console.log('Данные успешно обновлены:', result);
     }
 
-    console.log('Данные успешно записаны в базу данных:', result);
-    
     // Генерируем и сохраняем реферальный код для пользователя
-    try {
-      const referralLink = await processUserRefCode(id, email);
-      console.log(`Реферальная ссылка создана: ${referralLink}`);
-      
-      // Добавляем реферальную ссылку к результату
-      if (result && result.length > 0) {
+    if (result && result.length > 0) {
+      try {
+        const referralLink = await processUserRefCode(id, email);
+        console.log(`Реферальная ссылка создана: ${referralLink}`);
+        
+        // Добавляем реферальную ссылку к результату
         result[0].referral_link = referralLink;
+      } catch (refError) {
+        console.error('Ошибка при создании реферальной ссылки:', refError);
+        // Не прерываем выполнение, просто логируем ошибку
       }
-    } catch (refError) {
-      console.error('Ошибка при создании реферальной ссылки:', refError);
-      // Не прерываем выполнение, просто логируем ошибку
     }
     
     return result;
