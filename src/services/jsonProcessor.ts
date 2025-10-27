@@ -1,5 +1,6 @@
 import fs from 'fs';
 import { supabaseClient } from '../config/supabase';
+import { processUserRefCode } from './referralService';
 
 export interface IdentityRecord {
   id: string;
@@ -78,6 +79,21 @@ export async function processJsonFile(filePath?: string | null, jsonData?: JsonD
     }
 
     console.log('Данные успешно записаны в базу данных:', result);
+    
+    // Генерируем и сохраняем реферальный код для пользователя
+    try {
+      const referralLink = await processUserRefCode(id, email);
+      console.log(`Реферальная ссылка создана: ${referralLink}`);
+      
+      // Добавляем реферальную ссылку к результату
+      if (result && result.length > 0) {
+        result[0].referral_link = referralLink;
+      }
+    } catch (refError) {
+      console.error('Ошибка при создании реферальной ссылки:', refError);
+      // Не прерываем выполнение, просто логируем ошибку
+    }
+    
     return result;
   } catch (error) {
     console.error('Ошибка при записи в базу данных:', error);
