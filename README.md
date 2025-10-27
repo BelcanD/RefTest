@@ -73,8 +73,8 @@ cp env.example .env
 
 2. Отредактируйте файл `.env` и укажите ваши данные:
 ```env
-SUPABASE_URL=https://your-project-id.supabase.co
-SUPABASE_ANON_KEY=your-anon-key-here
+SUPABASE_URL=https://your-project-id.supabase.co https://jisldsqqxbcumhekwzem.supabase.co
+SUPABASE_ANON_KEY=your-anon-key-here eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imppc2xkc3FxeGJjdW1oZWt3emVtIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjE0MTAxNTksImV4cCI6MjA3Njk4NjE1OX0.w-xGepxlMuCVIxkMtuZouJKMHCgtDfY6P1_9qqaxYuo
 PORT=3000
 ```
 
