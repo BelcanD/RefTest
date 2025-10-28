@@ -1,5 +1,5 @@
 import fs from 'fs';
-import { supabaseClient } from '../config/supabase';
+import { sql } from '../config/db';
 import { processUserRefCode } from './referralService';
 
 export interface IdentityRecord {
@@ -69,44 +69,36 @@ export async function processJsonFile(filePath?: string | null, jsonData?: JsonD
 
   try {
     // Проверяем, существует ли пользователь в базе
-    const { data: existing, error: checkError } = await supabaseClient
-      .from('user_identities')
-      .select('*')
-      .eq('id', id)
-      .single();
+    const { rows: existingRows } = await sql`
+      SELECT * FROM user_identities WHERE id = ${id} LIMIT 1
+    `;
 
-    let result;
+    let result: any[] = [];
 
-    if (checkError && checkError.code === 'PGRST116') {
+    if (!existingRows || existingRows.length === 0) {
       // Пользователь не найден - создаем нового
       console.log(`Создание нового пользователя: ${email}`);
-      
-      const { data: insertResult, error: insertError } = await supabaseClient
-        .from('user_identities')
-        .insert([insertData])
-        .select();
 
-      if (insertError) {
-        throw insertError;
-      }
+      const { rows: insertRows } = await sql`
+        INSERT INTO user_identities (id, email, processed_at)
+        VALUES (${insertData.id}, ${insertData.email}, ${insertData.processed_at})
+        RETURNING *
+      `;
 
-      result = insertResult;
+      result = insertRows;
       console.log('Данные успешно записаны в базу данных:', result);
-    } else if (existing) {
+    } else {
       // Пользователь уже существует - обновляем только processed_at
       console.log(`Пользователь уже существует: ${email}`);
-      
-      const { data: updateResult, error: updateError } = await supabaseClient
-        .from('user_identities')
-        .update({ processed_at: new Date().toISOString() })
-        .eq('id', id)
-        .select();
 
-      if (updateError) {
-        throw updateError;
-      }
+      const { rows: updateRows } = await sql`
+        UPDATE user_identities
+        SET processed_at = ${new Date().toISOString()}
+        WHERE id = ${id}
+        RETURNING *
+      `;
 
-      result = updateResult;
+      result = updateRows;
       console.log('Данные успешно обновлены:', result);
     }
 
@@ -117,7 +109,7 @@ export async function processJsonFile(filePath?: string | null, jsonData?: JsonD
         console.log(`Реферальная ссылка создана: ${referralLink}`);
         
         // Добавляем реферальную ссылку к результату
-        result[0].referral_link = referralLink;
+        (result[0] as any).referral_link = referralLink;
       } catch (refError) {
         console.error('Ошибка при создании реферальной ссылки:', refError);
         // Не прерываем выполнение, просто логируем ошибку

@@ -1,4 +1,4 @@
-import { supabaseClient } from '../config/supabase';
+import { sql } from '../config/db';
 
 /**
  * Генерация уникального реферального кода
@@ -27,25 +27,18 @@ export async function generateUniqueRefCode(): Promise<string> {
     const refCode = generateRefCode();
     
     // Проверяем, существует ли этот код в базе
-    const { data, error } = await supabaseClient
-      .from('user_identities')
-      .select('ref_code')
-      .eq('ref_code', refCode)
-      .single();
-    
-    if (error && error.code === 'PGRST116') {
+    const { rows } = await sql`
+      SELECT ref_code FROM user_identities WHERE ref_code = ${refCode} LIMIT 1
+    `;
+
+    if (!rows || rows.length === 0) {
       // Код не найден - можем использовать
       return refCode;
     }
-    
-    if (data) {
-      // Код уже существует - генерируем новый
-      attempts++;
-      continue;
-    }
-    
-    // Если произошла другая ошибка
-    break;
+
+    // Код уже существует - генерируем новый
+    attempts++;
+    continue;
   }
   
   // Если не удалось сгенерировать уникальный код за maxAttempts попыток
@@ -58,12 +51,11 @@ export async function generateUniqueRefCode(): Promise<string> {
  * @param refCode - Реферальный код
  */
 export async function saveRefCodeToDatabase(id: string, refCode: string): Promise<void> {
-  const { error } = await supabaseClient
-    .from('user_identities')
-    .update({ ref_code: refCode })
-    .eq('id', id);
-  
-  if (error) {
+  try {
+    await sql`
+      UPDATE user_identities SET ref_code = ${refCode} WHERE id = ${id}
+    `;
+  } catch (error) {
     console.error('Ошибка при сохранении реферального кода:', error);
     throw new Error('Не удалось сохранить реферальный код');
   }
@@ -75,17 +67,15 @@ export async function saveRefCodeToDatabase(id: string, refCode: string): Promis
  * @returns Реферальная ссылка или null если пользователь не найден
  */
 export async function getReferralLinkByEmail(email: string): Promise<string | null> {
-  const { data, error } = await supabaseClient
-    .from('user_identities')
-    .select('ref_code')
-    .eq('email', email)
-    .single();
-  
-  if (error || !data || !data.ref_code) {
+  const { rows } = await sql`
+    SELECT ref_code FROM user_identities WHERE email = ${email} LIMIT 1
+  `;
+
+  if (!rows || rows.length === 0 || !rows[0].ref_code) {
     return null;
   }
-  
-  return `jobsy.com/ref/${data.ref_code}`;
+
+  return `jobsy.com/ref/${rows[0].ref_code}`;
 }
 
 /**
@@ -97,12 +87,12 @@ export async function getReferralLinkByEmail(email: string): Promise<string | nu
 export async function processUserRefCode(id: string, email: string): Promise<string> {
   try {
     // Проверяем, есть ли уже реферальный код у этого пользователя
-    const { data: existing, error: fetchError } = await supabaseClient
-      .from('user_identities')
-      .select('ref_code')
-      .eq('id', id)
-      .single();
-    
+    const { rows } = await sql`
+      SELECT ref_code FROM user_identities WHERE id = ${id} LIMIT 1
+    `;
+
+    const existing = rows && rows.length > 0 ? rows[0] : null;
+
     if (existing && existing.ref_code) {
       // Код уже существует, возвращаем его
       console.log(`Реферальный код уже существует для пользователя ${email}: ${existing.ref_code}`);
@@ -113,15 +103,9 @@ export async function processUserRefCode(id: string, email: string): Promise<str
     const refCode = await generateUniqueRefCode();
     
     // Сохраняем код в базу данных
-    const { error: saveError } = await supabaseClient
-      .from('user_identities')
-      .update({ ref_code: refCode })
-      .eq('id', id);
-    
-    if (saveError) {
-      console.error('Ошибка при сохранении реферального кода:', saveError);
-      throw new Error('Не удалось сохранить реферальный код');
-    }
+    await sql`
+      UPDATE user_identities SET ref_code = ${refCode} WHERE id = ${id}
+    `;
     
     console.log(`Реферальный код ${refCode} успешно создан и сохранен для пользователя ${email}`);
     

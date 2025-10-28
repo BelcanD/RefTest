@@ -4,7 +4,7 @@ import cors from 'cors';
 import path from 'path';
 import fs from 'fs';
 import { processJsonFile } from './services/jsonProcessor';
-import { supabaseClient } from './config/supabase';
+import { sql } from './config/db';
 
 const app = express();
 const port = process.env.PORT || 3000;
@@ -97,18 +97,11 @@ app.get('/health', (req, res) => {
 // Маршрут для получения всех записей из базы данных
 app.get('/records', async (req, res) => {
   try {
-    const { data, error } = await supabaseClient
-      .from('user_identities')
-      .select('*')
-      .order('created_at', { ascending: false });
-
-    if (error) {
-      throw error;
-    }
+    const { rows } = await sql`SELECT * FROM user_identities ORDER BY processed_at DESC`;
 
     res.json({
       success: true,
-      data: data
+      data: rows
     });
   } catch (error) {
     console.error('Ошибка при получении записей:', error);
